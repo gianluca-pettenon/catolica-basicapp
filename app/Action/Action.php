@@ -5,9 +5,12 @@ if (!headers_sent()) :
 endif;
 
 require_once "../Database/Database.php";
+require_once "../Repository/PeopleRepository.php";
 
 $conn = new Database;
 $conn = $conn->getConnect();
+
+$repository = new PeopleRepository($conn);
 
 $data = [
     "id" => (!empty($_POST["id"]) ? strip_tags($_POST["id"]) : null),
@@ -23,102 +26,23 @@ $data = [
 switch ($_POST["action"]):
 
     case "insert":
-
-        $query = "INSERT INTO
-                            users
-                                (
-                                    name,
-                                    mail,
-                                    birthday,
-                                    state,
-                                    address,
-                                    genre,
-                                    creditcard
-                                )
-                          VALUES (
-                                    :name,
-                                    :mail,
-                                    :birthday,
-                                    :state,
-                                    :address,
-                                    :genre,
-                                    :creditcard
-                                )";
-
-        $statement = $conn->prepare($query);
-
-        $statement->bindValue(":name", strtoupper($data["name"]), PDO::PARAM_STR);
-        $statement->bindValue(":mail", strtolower($data["mail"]), PDO::PARAM_STR);
-        $statement->bindValue(":birthday", $data["birthday"], PDO::PARAM_STR);
-        $statement->bindValue(":state", $data["state"], PDO::PARAM_STR);
-        $statement->bindValue(":address", strtoupper($data["address"]), PDO::PARAM_STR);
-        $statement->bindValue(":genre", $data["genre"], PDO::PARAM_STR);
-        $statement->bindValue(":creditcard", $data["creditcard"], PDO::PARAM_STR);
-
-        $statement->execute();
-
+        $repository->insert($data);
         break;
 
     case "update":
-
-        $query = "UPDATE
-                        users
-                    SET
-                        name = :name,
-                        mail = :mail,
-                        birthday = :birthday,
-                        state = :state,
-                        address = :address,
-                        genre = :genre,
-                        creditcard = :creditcard
-                    WHERE
-                        id = :id";
-
-        $statement = $conn->prepare($query);
-
-        $statement->bindValue(":id", $data["id"], PDO::PARAM_INT);
-
-        $statement->bindValue(":name", strtoupper($data["name"]), PDO::PARAM_STR);
-        $statement->bindValue(":mail", strtolower($data["mail"]), PDO::PARAM_STR);
-        $statement->bindValue(":birthday", $data["birthday"], PDO::PARAM_STR);
-        $statement->bindValue(":state", $data["state"], PDO::PARAM_STR);
-        $statement->bindValue(":address", strtoupper($data["address"]), PDO::PARAM_STR);
-        $statement->bindValue(":genre", $data["genre"], PDO::PARAM_STR);
-        $statement->bindValue(":creditcard", $data["creditcard"], PDO::PARAM_STR);
-
-        $statement->execute();
-
+        $repository->update($data);
         break;
 
     case "delete":
-
-        $statement = $conn->prepare("DELETE FROM users WHERE id = :id");
-
-        $statement->bindParam(":id", $data["id"], PDO::PARAM_INT);
-
-        $statement->execute();
-
+        $repository->delete($data);
         break;
 
-    case "fetch":
+    case "fetchById":
+        exit(json_encode($repository->fetchById($data)));
+        break;
 
-        $query = "SELECT
-                        users.*,
-                        state.name namestate
-                    FROM
-                        users
-                    LEFT OUTER JOIN state ON state.initials = users.state
-                    WHERE
-                        users.id = :id";
-
-        $statement = $conn->prepare($query);
-        $statement->bindValue(":id", $data["id"], PDO::PARAM_STR);
-        $statement->execute();
-
-        $data = $statement->fetch();
-
-        exit(json_encode($data));
-
+    case "fetchAll":
+        exit(json_encode($repository->fetchAll()));
         break;
 
 endswitch;

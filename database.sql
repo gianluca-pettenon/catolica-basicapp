@@ -36,9 +36,9 @@ INSERT IGNORE INTO `state` (`id`, `initials`, `name`) VALUES
 	(2, 'PR', 'Paraná'),
 	(3, 'RS', 'Rio Grande do Sul');
 
--- Copiando estrutura para tabela catolica.users
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
+-- Copiando estrutura para tabela catolica.people
+DROP TABLE IF EXISTS `people`;
+CREATE TABLE IF NOT EXISTS `people` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   `mail` varchar(50) DEFAULT NULL,
@@ -50,8 +50,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- Copiando dados para a tabela catolica.users: ~1 rows (aproximadamente)
-INSERT IGNORE INTO `users` (`id`, `name`, `mail`, `birthday`, `state`, `address`, `genre`, `creditcard`) VALUES
+-- Copiando dados para a tabela catolica.people: ~1 rows (aproximadamente)
+INSERT IGNORE INTO `people` (`id`, `name`, `mail`, `birthday`, `state`, `address`, `genre`, `creditcard`) VALUES
 	(1, 'Gianluca', 'gpettenon@softexpert.com', '2022-10-04', 'SC', 'Rua Frederico Schlemm', 'M', NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;

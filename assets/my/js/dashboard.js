@@ -41,7 +41,7 @@ const editRegister = (id) => {
 
     const request = new XMLHttpRequest();
 
-    const params = `action=fetch&id=${id}`;
+    const params = `action=fetchById&id=${id}`;
 
     request.open("POST", "app/Action/Action.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
