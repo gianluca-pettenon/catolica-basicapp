@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="pt-BR">
 
@@ -37,7 +36,7 @@
 
                         <div class="form-group mt-4">
                             <div class="d-grid gap-2">
-                                <button class="btn btn-lg btn-success">Autenticar</button>
+                                <button type="button" id="btnSubmit" class="btn btn-lg btn-success">Autenticar</button>
                             </div>
                         </div>
 
@@ -52,5 +51,8 @@
     </div>
 
 </body>
+
+<?php require_once "./include/footer.php" ?>
+<script src="assets/my/js/auth.js"></script>
 
 </html>

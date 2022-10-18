@@ -6,20 +6,9 @@ document.getElementById("btnSubmit").addEventListener("click", () => {
 
     const formUser = document.forms.formUser;
 
-    for (let field of formUser) {
-
-        if (document.getElementById(field.name) && document.getElementById(field.name).hasAttribute("required")) {
-
-            if (document.getElementById(field.name).value == "") {
-                Message.toast(`O campo ${field.name} é obrigatório.`);
-                return;
-            }
-
-        }
-
+    if (Validation.fieldRequired(formUser)) {
+        document.getElementById("formUser").submit();
     }
-
-    document.getElementById("formUser").submit();
 
 });
 

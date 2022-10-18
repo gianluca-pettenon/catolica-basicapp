@@ -3,10 +3,7 @@
 require_once "./app/Database/Database.php";
 require_once "./app/Repository/PeopleRepository.php";
 
-$conn = new Database;
-$conn = $conn->getConnect();
-
-$repository = new PeopleRepository($conn);
+$repository = new PeopleRepository(new Database);
 
 $fetchAllPeople = $repository->fetchAll();
 
@@ -46,10 +43,10 @@ $fetchAllPeople = $repository->fetchAll();
                                 <th>E-mail</th>
                                 <th>Nascimento</th>
                                 <th>Estado</th>
-                                <th>Endereço</th>
-                                <th>Gênero</th>
-                                <th>Cartão</th>
-                                <th>Ações</th>
+                                <th>Endere&ccedil;o</th>
+                                <th>G&ecirc;nero</th>
+                                <th>Cart&atilde;o</th>
+                                <th>A&ccedil;&otilde;es</th>
                             </tr>
 
                         </thead>
@@ -66,7 +63,7 @@ $fetchAllPeople = $repository->fetchAll();
                                     <td><?= $row["address"] ?></td>
                                     <td><?= $row["namegenre"] ?></td>
                                     <td><?= $row["creditcard"] ?></td>
-                                    <td><button class="btn btn-warning" onclick="editRegister(<?= $row["id"] ?>)">Editar</button> <button class="btn btn-danger" onclick="deleteRegister(<?= $row["id"] ?>)">Deletar</button></td>
+                                    <td><button class="btn btn-warning" onclick="editRegister(<?= addslashes($row["id"]) ?>)">Editar</button> <button class="btn btn-danger" onclick="deleteRegister(<?= addslashes($row["id"]) ?>)">Deletar</button></td>
                                 </tr>
                             <?php endforeach; ?>
 

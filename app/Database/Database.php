@@ -22,7 +22,7 @@ class Database
 
             $this->connection = new PDO('mysql:host=' . $this->hostname . ';port=' . $this->port . ';dbname=' . $this->database, $this->username, $this->password);
 
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             echo $e->getMessage();
         }
 

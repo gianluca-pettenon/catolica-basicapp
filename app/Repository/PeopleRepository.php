@@ -5,10 +5,15 @@ class PeopleRepository
 
     public function __construct(Database $database)
     {
-        $this->database = $database;
+        $this->database = $database->getConnect();
     }
 
-    public function fetchAll()
+    /**
+     * Metodo responsavel por retornar todas as pessoas cadastradas
+     * @return array
+     */
+
+    public function fetchAll(): array
     {
         $query = "SELECT
                       people.id,
@@ -28,7 +33,12 @@ class PeopleRepository
         return $this->database->query($query)->fetchAll();
     }
 
-    public function fetchById(array $params)
+    /**
+     * Metodo responsavel por retornar uma pessoa conforme argumento informado
+     * @return array
+     */
+
+    public function fetchById(array $params): array
     {
         $query = "SELECT
                       people.id,
@@ -54,6 +64,11 @@ class PeopleRepository
 
         return $statement->fetch();
     }
+
+    /**
+     * Metodo responsavel por cadastrar uma pessoa
+     * @param array $params
+     */
 
     public function insert(array $params)
     {
@@ -91,6 +106,11 @@ class PeopleRepository
         $statement->execute();
     }
 
+    /**
+     * Metodo responsavel por excluir uma pessoa
+     * @param array $params
+     */
+
     public function delete(array $params)
     {
         $query = "DELETE FROM people WHERE id = :id";
@@ -101,6 +121,11 @@ class PeopleRepository
 
         $statement->execute();
     }
+
+    /**
+     * Metodo responsavel por editar uma pessoa
+     * @param array $params
+     */
 
     public function update(array $params): void
     {
@@ -131,4 +156,5 @@ class PeopleRepository
 
         $statement->execute();
     }
+
 }
