@@ -44,7 +44,7 @@ class AuthenticationService
 
     public function setPassword(string $password): void
     {
-        $this->password = $this->encrypt->encrypt($password);
+        $this->password = $password;
     }
 
     /**
@@ -63,12 +63,13 @@ class AuthenticationService
 
     public function authenticate(UserRepository $userRepository)
     {
-        $fetchUser = $userRepository->fetchByUsername($this->username);
+        $fetchUser = $userRepository->fetchByUsername($this->getUsername());
 
-        if ($this->encrypt->verify($this->password, $fetchUser["password"])) {
-            return ["password" => $this->password, "fetchPass" => $fetchUser["password"]];
+        if ($this->encrypt->verify($this->getPassword(), $fetchUser["password"])) {
+            return ["error" => false, "uri" => "/dashboard"];
         }
 
+        return ["error" => true, "message" => "Usuário ou senha inválidos."];
     }
 
 }

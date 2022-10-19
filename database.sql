@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `state` (
   KEY `initials` (`initials`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Copiando dados para a tabela catolica.state: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela catolica.state: ~3 rows (aproximadamente)
 INSERT IGNORE INTO `state` (`id`, `initials`, `name`) VALUES
 	(1, 'SC', 'Santa Catarina'),
 	(2, 'PR', 'Paraná'),
@@ -60,14 +60,14 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) DEFAULT NULL,
-  `password` varchar(256) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `rule` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- Copiando dados para a tabela catolica.users: ~1 rows (aproximadamente)
 INSERT IGNORE INTO `users` (`id`, `username`, `password`, `rule`) VALUES
-	(1, 'admin', '$2y$10$krhJB332aqbD2aRcCj8eues/QCE.69iX/LNNQDHVS5TqMByHxNGbG', NULL);
+	(1, 'admin', '$2y$10$U1t5EtdgfTAVCN8L6gcQwegqPqG1k.HwXV5A/2iWnrTLCy4ZmzXnK', NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

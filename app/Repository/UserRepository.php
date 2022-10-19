@@ -17,8 +17,7 @@ class UserRepository
     public function fetchByUsername(string $username): array
     {
         $query = "SELECT
-                        users.username,
-                        users.password
+                        users.*
                     FROM
                         users
                     WHERE
@@ -27,6 +26,7 @@ class UserRepository
         $statement = $this->database->prepare($query);
 
         $statement->bindValue(":username", $username, PDO::PARAM_STR);
+
         $statement->execute();
 
         return $statement->fetch();

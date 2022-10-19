@@ -10,6 +10,19 @@
 
 <body>
 
+<?php
+
+$hashed = password_hash('test', PASSWORD_DEFAULT);
+$password = 'test';
+
+if (password_verify($password, $hashed)) {
+  echo 'success';
+} else {
+  echo 'fail';
+}
+
+?>
+
     <div class="container">
 
         <div class="col-lg-4 offset-lg-4 pt-5">

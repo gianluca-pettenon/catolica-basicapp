@@ -20,7 +20,10 @@ document.getElementById("btnSubmit").addEventListener("click", () => {
 
                 const response = JSON.parse(request.responseText);
 
-                console.log(response);
+                if (response.uri) {
+                    setTimeout(() => { window.location.href = response.uri; }, 2500);
+                }
+
             }
 
         }
