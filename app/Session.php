@@ -1,6 +1,6 @@
 <?php
 
-class SessionService
+class Session
 {
 
     /**
@@ -13,11 +13,6 @@ class SessionService
      */
     private $session;
 
-    public function __construct(Session $session)
-    {
-        $this->session = $session;
-    }
-
     /**
      * Metodo para setar valores na sessao
      * @param string $key
@@ -25,7 +20,7 @@ class SessionService
      * @return void
      */
 
-    public function setData(string $key, string|array $value): void
+    public function set(string $key, string|array $value): void
     {
         $this->data[$key] = $value;
     }
@@ -36,11 +31,36 @@ class SessionService
      * @return void
      */
 
-    public function removeData(string $key): void
+    public function remove(string $key): void
     {
         if (array_key_exists($key, $this->data)) {
             unset($this->data[$key]);
         }
+    }
+
+    /**
+     * Metodo para verificar se um valor existe na sessao
+     * @param string $key
+     * @return bool
+     */
+
+    public function has(string $key): bool
+    {
+        if (array_key_exists($key, $this->data)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Metodo para limpar os dados
+     * @return void
+     */
+
+    public function reset(): void
+    {
+        $this->data = [];
     }
 
     /**

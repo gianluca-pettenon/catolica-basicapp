@@ -1,5 +1,8 @@
 <?php
 
+require_once "../Session.php";
+require_once "SessionService.php";
+
 class AuthenticationService
 {
 
@@ -66,7 +69,15 @@ class AuthenticationService
         $fetchUser = $userRepository->fetchByUsername($this->getUsername());
 
         if ($this->encrypt->verify($this->getPassword(), $fetchUser["password"])) {
-            return ["error" => false, "uri" => "/dashboard"];
+
+            $sessionService = new SessionService(new Session);
+
+            $sessionService->setData("id", $fetchUser["id"]);
+            $sessionService->setData("username", $fetchUser["username"]);
+
+            //$sessionService->start();
+            return var_dump($sessionService);
+
         }
 
         return ["error" => true, "message" => "Usuário ou senha inválidos."];

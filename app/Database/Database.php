@@ -8,7 +8,7 @@ class Database
     private string $password = "";
     private string $database = "catolica";
     private int $port = 3306;
-    private $connection;
+    private PDO $connection;
 
     public function __construct()
     {

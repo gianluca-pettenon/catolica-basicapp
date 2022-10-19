@@ -2,6 +2,10 @@
 
 class UserRepository
 {
+    /**
+     * @var $database
+     */
+    private $database;
 
     public function __construct(Database $database)
     {
