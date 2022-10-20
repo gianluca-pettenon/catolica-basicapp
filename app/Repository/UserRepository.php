@@ -15,10 +15,10 @@ class UserRepository
     /**
      * Metodo responsavel por retornar uma pessoa conforme argumento informado
      * @param string $username
-     * @return array
+     * @return array|bool
      */
 
-    public function fetchByUsername(string $username): array
+    public function fetchByUsername(string $username): array|bool
     {
         $query = "SELECT
                         users.*

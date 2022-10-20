@@ -25,9 +25,11 @@ class SessionService
      * @return void
      */
 
-    public function setData(string $key, string|array $value): void
+    public function set(string $key, string|array $value): void
     {
         $this->data[$key] = $value;
+
+        $this->update();
     }
 
     /**
@@ -36,11 +38,49 @@ class SessionService
      * @return void
      */
 
-    public function removeData(string $key): void
+    public function unset(string $key): void
     {
         if (array_key_exists($key, $this->data)) {
             unset($this->data[$key]);
         }
+    }
+
+    /**
+     * Metodo para verificar se um valor existe na sessao
+     * @param string $key
+     * @return bool
+     */
+
+    public function has(string $key): bool
+    {
+        if (array_key_exists($key, $this->data)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Metodo para limpar os dados
+     * @return void
+     */
+
+    public function reset(): void
+    {
+        $this->data = [];
+    }
+
+    /**
+     * Metodo para inserir os dados na sessao
+     * @access private
+     * @return void
+     */
+
+    private function update(): void
+    {
+        foreach ($this->data as $key => $value) :
+            $_SESSION[$key] = $value;
+        endforeach;
     }
 
     /**
@@ -50,7 +90,8 @@ class SessionService
 
     public function start(): void
     {
-        $this->session->start();
+       $this->session->start();
+       $this->update();
     }
 
     /**
@@ -62,5 +103,4 @@ class SessionService
     {
         $this->session->destroy();
     }
-
 }

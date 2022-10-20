@@ -68,15 +68,17 @@ class AuthenticationService
     {
         $fetchUser = $userRepository->fetchByUsername($this->getUsername());
 
-        if ($this->encrypt->verify($this->getPassword(), $fetchUser["password"])) {
+        if (!empty($fetchUser)) {
 
-            $sessionService = new SessionService(new Session);
+            if ($this->encrypt->verify($this->getPassword(), $fetchUser["password"])) {
 
-            $sessionService->setData("id", $fetchUser["id"]);
-            $sessionService->setData("username", $fetchUser["username"]);
+                $sessionService = new SessionService(new Session);
 
-            //$sessionService->start();
-            return var_dump($sessionService);
+                $sessionService->set("id", $fetchUser["id"]);
+                $sessionService->set("username", $fetchUser["username"]);
+
+                return ["error" => false, "message" => "Autenticado com sucesso.", "uri" => "dashboard.php"];
+            }
 
         }
 

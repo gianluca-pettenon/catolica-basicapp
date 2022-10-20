@@ -19,7 +19,11 @@ document.getElementById("btnSubmit").addEventListener("click", () => {
             if (request.readyState == 4 && request.status == 200) {
 
                 const response = JSON.parse(request.responseText);
-                console.log(response);
+
+                if (response.message) {
+                    Message.toast(response.message);
+                }
+
                 if (response.uri) {
                     setTimeout(() => { window.location.href = response.uri; }, 2500);
                 }

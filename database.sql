@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `state` (
   KEY `initials` (`initials`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Copiando dados para a tabela catolica.state: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela catolica.state: ~2 rows (aproximadamente)
 INSERT IGNORE INTO `state` (`id`, `initials`, `name`) VALUES
 	(1, 'SC', 'Santa Catarina'),
 	(2, 'PR', 'Paraná'),
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- Copiando dados para a tabela catolica.users: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela catolica.users: ~0 rows (aproximadamente)
 INSERT IGNORE INTO `users` (`id`, `username`, `password`, `rule`) VALUES
 	(1, 'admin', '$2y$10$U1t5EtdgfTAVCN8L6gcQwegqPqG1k.HwXV5A/2iWnrTLCy4ZmzXnK', NULL);
 

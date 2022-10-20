@@ -11,16 +11,9 @@
 <body>
 
 <?php
-
-$hashed = password_hash('test', PASSWORD_DEFAULT);
-$password = 'test';
-
-if (password_verify($password, $hashed)) {
-  echo 'success';
-} else {
-  echo 'fail';
-}
-
+//session_start();
+//var_dump($_SESSION);
+//session_destroy();
 ?>
 
     <div class="container">
