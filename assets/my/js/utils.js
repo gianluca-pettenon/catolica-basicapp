@@ -17,6 +17,29 @@ const Modal = {
 
 }
 
+const Validation = {
+
+    fieldRequired: (objectForm) => {
+
+        for (let field of objectForm) {
+
+            if (document.getElementById(field.name) && document.getElementById(field.name).hasAttribute("required")) {
+
+                if (document.getElementById(field.name).value == "") {
+                    Message.toast(`O campo ${field.name} é obrigatório.`);
+                    return false;
+                }
+
+            }
+
+        }
+
+        return true;
+
+    }
+
+}
+
 const Config = {
 
     toast: () => {

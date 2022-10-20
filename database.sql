@@ -20,6 +20,25 @@ DROP DATABASE IF EXISTS `catolica`;
 CREATE DATABASE IF NOT EXISTS `catolica` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `catolica`;
 
+-- Copiando estrutura para tabela catolica.people
+DROP TABLE IF EXISTS `people`;
+CREATE TABLE IF NOT EXISTS `people` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `mail` varchar(50) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `state` varchar(2) DEFAULT NULL,
+  `address` varchar(256) DEFAULT NULL,
+  `genre` varchar(1) DEFAULT NULL,
+  `creditcard` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+
+-- Copiando dados para a tabela catolica.people: ~2 rows (aproximadamente)
+INSERT IGNORE INTO `people` (`id`, `name`, `mail`, `birthday`, `state`, `address`, `genre`, `creditcard`) VALUES
+	(7, 'GIAN', 'adsdas@live.com', '2001-02-13', 'SC', 'ASDDASDSA', 'F', 'Elo'),
+	(11, 'DSADSADAS', 'dasdasads@live.com', '2001-02-13', 'SC', 'DSADSADASSDA', 'M', 'Elo');
+
 -- Copiando estrutura para tabela catolica.state
 DROP TABLE IF EXISTS `state`;
 CREATE TABLE IF NOT EXISTS `state` (
@@ -30,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `state` (
   KEY `initials` (`initials`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Copiando dados para a tabela catolica.state: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela catolica.state: ~2 rows (aproximadamente)
 INSERT IGNORE INTO `state` (`id`, `initials`, `name`) VALUES
 	(1, 'SC', 'Santa Catarina'),
 	(2, 'PR', 'Paraná'),
@@ -40,19 +59,15 @@ INSERT IGNORE INTO `state` (`id`, `initials`, `name`) VALUES
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  `mail` varchar(50) DEFAULT NULL,
-  `birthday` date DEFAULT NULL,
-  `state` varchar(2) DEFAULT NULL,
-  `address` varchar(256) DEFAULT NULL,
-  `genre` varchar(1) DEFAULT NULL,
-  `creditcard` varchar(50) DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `rule` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- Copiando dados para a tabela catolica.users: ~1 rows (aproximadamente)
-INSERT IGNORE INTO `users` (`id`, `name`, `mail`, `birthday`, `state`, `address`, `genre`, `creditcard`) VALUES
-	(1, 'Gianluca', 'gpettenon@softexpert.com', '2022-10-04', 'SC', 'Rua Frederico Schlemm', 'M', NULL);
+-- Copiando dados para a tabela catolica.users: ~0 rows (aproximadamente)
+INSERT IGNORE INTO `users` (`id`, `username`, `password`, `rule`) VALUES
+	(1, 'admin', '$2y$10$U1t5EtdgfTAVCN8L6gcQwegqPqG1k.HwXV5A/2iWnrTLCy4ZmzXnK', NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -6,20 +6,9 @@ document.getElementById("btnSubmit").addEventListener("click", () => {
 
     const formUser = document.forms.formUser;
 
-    for (let field of formUser) {
-
-        if (document.getElementById(field.name) && document.getElementById(field.name).hasAttribute("required")) {
-
-            if (document.getElementById(field.name).value == "") {
-                Message.toast(`O campo ${field.name} é obrigatório.`);
-                return;
-            }
-
-        }
-
+    if (Validation.fieldRequired(formUser)) {
+        document.getElementById("formUser").submit();
     }
-
-    document.getElementById("formUser").submit();
 
 });
 
@@ -41,7 +30,7 @@ const editRegister = (id) => {
 
     const request = new XMLHttpRequest();
 
-    const params = `action=fetch&id=${id}`;
+    const params = `action=fetchById&id=${id}`;
 
     request.open("POST", "app/Action/Action.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

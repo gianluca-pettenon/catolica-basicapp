@@ -4,182 +4,61 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GIANLUCA PETTENON: NP2</title>
+    <title>GIANLUCA PETTENON: Entrar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-    <?php
-
-    require_once "app/Database/Database.php";
-
-    $conn = new Database;
-    $conn = $conn->getConnect();
-
-    $result = $conn->query("SELECT users.*, state.name namestate FROM users LEFT OUTER JOIN state ON state.initials = users.state ORDER BY id")->fetchAll();
-
-    ?>
+<?php
+//session_start();
+//var_dump($_SESSION);
+//session_destroy();
+?>
 
     <div class="container">
 
-        <div class="col-lg-12 pt-5">
+        <div class="col-lg-4 offset-lg-4 pt-5">
 
             <div class="card">
 
-                <div class="card-body">
-
-                    <div class="mb-2">
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#userModal">Cadastrar</button>
-                    </div>
-
-                    <table class="table">
-
-                        <thead>
-
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>E-mail</th>
-                                <th>Nascimento</th>
-                                <th>Estado</th>
-                                <th>Endereço</th>
-                                <th>Gênero</th>
-                                <th>Cartão</th>
-                                <th>Ações</th>
-                            </tr>
-
-                        </thead>
-
-                        <tbody>
-
-                            <?php foreach ($result as $row) : ?>
-                                <tr>
-                                    <td><?= $row["id"] ?></td>
-                                    <td><?= $row["name"] ?></td>
-                                    <td><?= $row["mail"] ?></td>
-                                    <td><?= $row["birthday"] ?></td>
-                                    <td><?= $row["namestate"] ?></td>
-                                    <td><?= $row["address"] ?></td>
-                                    <td><?= ($row["genre"] == "M" ? "Masculino" : "Feminino") ?></td>
-                                    <td><?= $row["creditcard"] ?></td>
-                                    <td><button class="btn btn-warning" onclick="editRegister(<?= $row["id"] ?>)">Editar</button> <button class="btn btn-danger" onclick="deleteRegister(<?= $row["id"] ?>)">Deletar</button></td>
-                                </tr>
-                            <?php endforeach; ?>
-
-                        </tbody>
-
-                    </table>
-
+                <div class="card-header text-white bg-primary">
+                    Autenticação
                 </div>
 
-            </div>
+                <div class="card-body">
 
-        </div>
-
-    </div>
-
-    <div class="modal fade" id="userModal" data-bs-backdrop="static" aria-labelledby="userModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-body">
-
-                    <form id="formUser" action="app/Action/Action.php" method="POST" autocomplete="off">
-
-                        <input type="hidden" name="action" id="action" value="insert">
-                        <input type="hidden" name="id" id="id" value="">
+                    <form name="formAuth" method="POST" autocomplete="off">
 
                         <div class="form-group">
-                            <label for="name" class="form-label">Nome completo <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Nome completo" required>
+                            <label for="username" class="form-label">Usu&aacute;rio <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="username" placeholder="Usu&aacute;rio" required>
                         </div>
 
                         <div class="form-group mt-2">
-                            <label for="mail" class="form-label">E-mail <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" id="mail" name="mail" placeholder="E-mail" required>
+                            <label for="password" class="form-label">Senha <span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" id="password" placeholder="Senha" required>
                         </div>
 
-                        <div class="form-group mt-2">
-                            <label for="birthday" class="form-label">Data de nascimento <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" id="birthday" name="birthday" placeholder="Data de nascimento" required>
-                        </div>
-
-                        <div class="form-group mt-2">
-                            <label for="state" class="form-label">Estado <span class="text-danger">*</span></label>
-                            <select id="state" name="state" class="form-control">
-                                <option></option>
-                                <option value="PR">Paran&aacute;</option>
-                                <option value="SC">Santa Catarina</option>
-                                <option value="RS">Rio Grande do Sul</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group mt-2">
-                            <label for="address" class="form-label">Endere&ccedil;o <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="address" name="address" placeholder="Endereço" required>
-                        </div>
-
-                        <div class="form-group mt-2">
-
-                            <label for="genre" class="form-label">G&ecirc;nero <span class="text-danger">*</span></label>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="genre" value="F">
-                                <label class="form-check-label">Feminino</label>
+                        <div class="form-group mt-4">
+                            <div class="d-grid gap-2">
+                                <button type="button" id="btnSubmit" class="btn btn-lg btn-success">Autenticar</button>
                             </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="genre" value="M">
-                                <label class="form-check-label">Masculino</label>
-                            </div>
-
-                        </div>
-
-                        <div class="form-group mt-2">
-
-                            <label for="sex" class="form-label">Cart&atilde;o de cr&eacute;dito <span class="text-danger">*</span></label>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="creditcard" value="Visa">
-                                <label class="form-check-label">Visa</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="creditcard" value="Mastercard">
-                                <label class="form-check-label">Mastercard</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="creditcard" value="Elo">
-                                <label class="form-check-label">Elo</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="creditcard" value="DinersClub">
-                                <label class="form-check-label">Diners Club</label>
-                            </div>
-
                         </div>
 
                     </form>
 
                 </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" id="btnClear" class="btn btn-lg btn-warning">Limpar</button>
-                    <button type="button" id="btnSubmit" class="btn btn-lg btn-success">Salvar</button>
-                </div>
-
             </div>
+
         </div>
+
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/libs/js/toast.min.js"></script>
-    <script src="assets/my/js/utils.js"></script>
-    <script src="assets/my/js/app.js"></script>
-
 </body>
+
+<?php require_once "./include/footer.php" ?>
+<script src="assets/my/js/auth.js"></script>
 
 </html>
